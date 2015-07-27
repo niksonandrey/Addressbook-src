@@ -29,10 +29,10 @@ public class TestBase {
 	public Iterator<Object[]> randomValidGroupGenerator() {
 		List<Object[]> list = new ArrayList<Object[]>();
 		for (int i = 0; i < 5; i++) {
-			GroupData group  = new GroupData();
-			group.name = generateRandomString();
-			group.header = generateRandomString();
-			group.footer = generateRandomString();
+			GroupData group  = new GroupData()
+			.withName(generateRandomString())
+			.withHeader(generateRandomString())
+			.withFooter(generateRandomString());
 			list.add(new Object[] {group});
 		}
 		return list.iterator();
@@ -56,25 +56,31 @@ public class TestBase {
 		}
 	}
 	
+	public String generateRandomMonth() {
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return months[new Random().nextInt(11)];
+}
+
+	
 	@DataProvider
 	public Iterator<Object[]> randomValidContactGenerator() {
 		List<Object[]> list = new ArrayList<Object[]>();
 		Random rnd = new Random();
 		for (int i = 0; i < 5; i++) {
-			ContactData contact_tmp  = new ContactData();
-			contact_tmp.accname = generateRandomString();
-		    contact_tmp.surname = generateRandomString();
-		    contact_tmp.address1 = generateRandomString();
-		    contact_tmp.mobilephone = generateRandomNumber();
-		    contact_tmp.homephone = "057" + (rnd.nextInt(10000000) + 1);
-		    contact_tmp.workphone = generateRandomNumber();
-		    contact_tmp.email1 = (rnd.nextInt(1000) + 1) + "email1@trp.sw";
-		    contact_tmp.email2 = generateRandomString() + "email2@trp.sw";
-		    contact_tmp.bday = "" + (rnd.nextInt(30) + 1);
-		    contact_tmp.bmonth = "February";
-		    contact_tmp.byear = "" + (rnd.nextInt(2000) + 1);
-		    contact_tmp.address2 = generateRandomString();
-		    contact_tmp.phone2 = generateRandomNumber();
+			ContactData contact_tmp  = new ContactData()
+			.withAccName(generateRandomString())
+			.withSurname(generateRandomString())
+			.withAddress1(generateRandomString())
+		    .withMobilePhone(generateRandomNumber())
+		    .withHomePhone("057" + (rnd.nextInt(10000000) + 1))
+		    .withWorkPhone(generateRandomNumber())
+		    .withEmail1((rnd.nextInt(1000) + 1) + "email1@trp.sw")
+		    .withEmail2(generateRandomString() + "email2@trp.sw")
+		    .withBDay("" + (rnd.nextInt(30) + 1))
+		    .withBMonth(generateRandomMonth())
+		    .withBYear("" + (rnd.nextInt(2000) + 1))
+		    .withAddress2(generateRandomString())
+		    .withPhone2(generateRandomNumber());
 			list.add(new Object[] {contact_tmp});
 		}
 		return list.iterator();
